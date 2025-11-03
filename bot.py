@@ -191,7 +191,7 @@ async def song_info(update: Update, context: CallbackContext) -> None:
 
 
 def main() -> None:
-    token = '7740603325:AAEZ6c2n9z26Nc9mO8fwWSQH2WXLP1F_Tmo'
+    token = os.environ['BOT_TOKEN']
     # Увеличиваем таймауты
     request = HTTPXRequest(
         connect_timeout=60.0,
@@ -206,7 +206,7 @@ def main() -> None:
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, song_info))
 
     port = int(os.environ.get("PORT", 8080))  # ← Render задаёт порт через переменную
-    webhook_url = "https://ТВОЙ-САЙТ.onrender.com"  # ← сюда вставишь ссылку после деплоя
+    webhook_url = os.environ['WEBHOOK_URL']
 
     application.run_webhook(  # ← вместо run_polling()
         listen="0.0.0.0",  # слушаем на всех интерфейсах
@@ -220,3 +220,4 @@ if __name__ == "__main__":
     main()
 
     
+
